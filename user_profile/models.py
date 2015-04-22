@@ -51,12 +51,10 @@ class UserProfile(models.Model):
     is_active = models.BooleanField(default=True)
 
     following = models.ManyToManyField('self',
-                                       null=True,
                                        symmetrical=False,
                                        related_name='followers')
 
     blocking = models.ManyToManyField('self',
-                                      null=True,
                                       symmetrical=False,
                                       related_name='blockers')
     objects = models.Manager()
