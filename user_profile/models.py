@@ -9,12 +9,12 @@ from django.core.validators import RegexValidator
 # Already in User: username, password, date joined, email address, active
 
 
-# class ActiveProfileManager(models.Manager):
-#     """Profile Manager"""
-#     def get_queryset(self):
-#         """gets all active members"""
-#         query = super(ActiveProfileManager, self).get_queryset()
-#         return query.filter(is_active__exact=True)
+class ActiveProfileManager(models.Manager):
+    """Profile Manager"""
+    def get_queryset(self):
+        """gets all active members"""
+        query = super(ActiveProfileManager, self).get_queryset()
+        return query.filter(is_active__exact=True)
 
 
 @python_2_unicode_compatible
@@ -64,31 +64,31 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-    # # Create a manager
-    # objects = models.Manager()
-    # active = ActiveProfileManager()
+    # Create a manager
+    objects = models.Manager()
+    active = ActiveProfileManager()
 
 
 
-    # # Following
-    # def follow(self, other):
-    #     self.following.add(other)
+    # Following
+    def follow(self, other):
+        self.following.add(other)
 
-    # def unfollow(self, other):
-    #     if other in self.following.all():
-    #         self.following.remove(other)
-    #     else:
-    #         raise ValueError('Cannot unfollow someone you are not following.')
+    def unfollow(self, other):
+        if other in self.following.all():
+            self.following.remove(other)
+        else:
+            raise ValueError('Cannot unfollow someone you are not following.')
 
-    # # def following(self):
-    # #     return self.follows.exclude(blocking=self)
+    # def following(self):
+    #     return self.follows.exclude(blocking=self)
 
-    # # Blocking
-    # def block(self, other):
-    #     return self.blocking.add(other)
+    # Blocking
+    def block(self, other):
+        return self.blocking.add(other)
 
-    # def unblock(self, other):
-    #     if other in self.following.all():
-    #         self.blocking.remove(other)
-    #     else:
-    #         raise ValueError('Cannot unblock someone you are not blocking.')
+    def unblock(self, other):
+        if other in self.following.all():
+            self.blocking.remove(other)
+        else:
+            raise ValueError('Cannot unblock someone you are not blocking.')
