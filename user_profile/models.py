@@ -9,12 +9,12 @@ from django.core.validators import RegexValidator
 # Already in User: username, password, date joined, email address, active
 
 
-class ActiveProfileManager(models.Manager):
-    """Profile Manager"""
-    def get_queryset(self):
-        """gets"""
-        query = super(ActiveProfileManager, self).get_queryset()
-        return query.filter(is_active__exact=True)
+# class ActiveProfileManager(models.Manager):
+#     """Profile Manager"""
+#     def get_queryset(self):
+#         """gets all active members"""
+#         query = super(ActiveProfileManager, self).get_queryset()
+#         return query.filter(is_active__exact=True)
 
 
 @python_2_unicode_compatible
@@ -50,38 +50,43 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     is_active = models.BooleanField(default=True)
 
-    following = models.ManyToManyField('self',
-                                       symmetrical=False,
-                                       related_name='followers')
+    # following = models.ManyToManyField('self',
+    #                                    symmetrical=False,
+    #                                    related_name='followers')
 
-    blocking = models.ManyToManyField('self',
-                                      symmetrical=False,
-                                      related_name='blockers')
-    objects = models.Manager()
-    active = ActiveProfileManager()
+    # blocking = models.ManyToManyField('self',
+    #                                   symmetrical=False,
+    #                                   related_name='blockers')
 
     def __str__(self):
         return self.user.username
 
-    # Following
-    def follow(self, other):
-        self.following.add(other)
 
-    def unfollow(self, other):
-        if other in self.following.all():
-            self.following.remove(other)
-        else:
-            raise ValueError('Cannot unfollow someone you are not following.')
+    # # Create a manager
+    # objects = models.Manager()
+    # active = ActiveProfileManager()
 
-    # def following(self):
-    #     return self.follows.exclude(blocking=self)
 
-    # Blocking
-    def block(self, other):
-        return self.blocking.add(other)
 
-    def unblock(self, other):
-        if other in self.following.all():
-            self.blocking.remove(other)
-        else:
-            raise ValueError('Cannot unblock someone you are not blocking.')
+    # # Following
+    # def follow(self, other):
+    #     self.following.add(other)
+
+    # def unfollow(self, other):
+    #     if other in self.following.all():
+    #         self.following.remove(other)
+    #     else:
+    #         raise ValueError('Cannot unfollow someone you are not following.')
+
+    # # def following(self):
+    # #     return self.follows.exclude(blocking=self)
+
+    # # Blocking
+    # def block(self, other):
+    #     return self.blocking.add(other)
+
+    # def unblock(self, other):
+    #     if other in self.following.all():
+    #         self.blocking.remove(other)
+    #     else:
+    #         raise ValueError('Cannot unblock someone you are not blocking.')
