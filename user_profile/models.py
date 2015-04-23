@@ -50,13 +50,15 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     is_active = models.BooleanField(default=True)
 
-    # following = models.ManyToManyField('self',
-    #                                    symmetrical=False,
-    #                                    related_name='followers')
+    following = models.ManyToManyField('self',
+                                       blank=True,
+                                       symmetrical=False,
+                                       related_name='followers')
 
-    # blocking = models.ManyToManyField('self',
-    #                                   symmetrical=False,
-    #                                   related_name='blockers')
+    blocking = models.ManyToManyField('self',
+                                      blank=True,
+                                      symmetrical=False,
+                                      related_name='blockers')
 
     def __str__(self):
         return self.user.username
