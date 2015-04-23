@@ -1,6 +1,14 @@
-# mod_splash
+# mod_drops
 
 Site for trading stylish images from the 60's and 70's.
+
+## Uses
+
+1. finding images to use for wallpapers
+2. finding movies to watch based on images
+3. looking at and trading images
+4. a home for permalinks for images
+5. finding or showing off clothes
 
 ## Intro
 
