@@ -1,0 +1,28 @@
+body {
+  padding-top: 30px;
+  padding-left: 20px;
+}
+.imager-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.navbar-inverse {
+  background-color: #9b59b6;
+  border-color: #8e44ad;
+}
+
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+  color: #fff;
+  background-color: #662f7e;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #dddddd;
+}
+
+
+.navbar-inverse .navbar-brand {
+  color: #dddddd;
+}
