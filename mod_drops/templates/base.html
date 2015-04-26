@@ -7,7 +7,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <meta name="description" content="Web Application for Uploading Images and Creating Albums">
         <meta name="author" content="Henry Grantham">
-        <link rel="icon" href="{{ STATIC_URL }}images/favicon.ico">
+        <link rel="icon" href="{{ STATIC_URL }}mod_drops/favicon.ico">
 
         <!-- Bootstrap core CSS -->
         <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
@@ -36,16 +36,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="#">Imager</a>
+                  <a class="navbar-brand" href="#">Mod Drops</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                   <ul class="nav navbar-nav">
-                        <li><a href='{% url 'imager.views.home' %}'>Home</a></li>
+                        <li><a href='{% url 'mod_drops.views.index' %}'>Home</a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'stream' user.profile.pk %}">Stream</a></li>
-                        <li><a href="{% url 'library' user.profile.pk %}">Library</a></li>
-                        <li><a href="{% url 'profile_detail' user.profile.pk %}">Profile</a></li>
-                        <li><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
+                        <li><a href="{% url 'index' %}?next=/">Logout</a></li>
                     {% endif %}
                   </ul>
                 </div><!--/.nav-collapse -->
@@ -57,7 +54,7 @@
                 {% if user.is_authenticated %}
                     <h3 class="lead">User: {{ user.username }}</h3>
                 {% endif %}
-                <p class="lead">Upload your photos to Imager and create your own albums.</p>
+                <p class="lead">Upload your mod images to Mod Drops.</p>
             </div>
         </div>
         {% block body %}
@@ -71,7 +68,7 @@
  <!--        <script src="{{ STATIC_URL }}/js/ie10-viewport-bug-workaround.js"></script> -->
     </body>
 </html>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(function () {
         console.log('loading in active')
         $("#index").parent().find("a:contains('Home')").parent().addClass('active');
@@ -79,4 +76,4 @@
         $("#library").parent().find("a:contains('Library')").parent().addClass('active');
         $("#stream").parent().find("a:contains('Stream')").parent().addClass('active');
      });
-</script>
+</script> -->
