@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATE_DIRS =[ os.path.join(BASE_DIR, 'mod_drops/templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'mod_drops/templates')]
 
 WSGI_APPLICATION = 'mod_drops.wsgi.application'
 

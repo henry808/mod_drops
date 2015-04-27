@@ -1,0 +1,8 @@
+Almost there, please follow the link here to complete your registration for {{ site }} as {{ user }}
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+This key is valid for {{ expiration_days }} days.
+
+Thanks,
+Imager Application
