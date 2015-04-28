@@ -37,8 +37,9 @@ def profile_update(request, *args, **kwargs):
             user.save()
             return HttpResponseRedirect(
                 reverse(
-                    'profile_detail',
-                    kwargs={'pk': request.user.profile.pk}
+                    'profile:profile'
+                    # ,
+                    # kwargs={'pk': request.user.profile.pk}
                 ))
     else:
         # For populating a form when a user navigates to page
