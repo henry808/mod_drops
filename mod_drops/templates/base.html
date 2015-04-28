@@ -42,7 +42,8 @@
                   <ul class="nav navbar-nav">
                         <li><a href='{% url 'mod_drops.views.index' %}'>Home</a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'index' %}?next=/">Logout</a></li>
+                        <li><a href="{% url 'profile:profile' %}">{{user}}</a></li>
+                        <li><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
                     {% endif %}
                   </ul>
                 </div><!--/.nav-collapse -->
