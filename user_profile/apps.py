@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class ImagerAppConfig(AppConfig):
+class ProfileAppConfig(AppConfig):
 
     name = 'user_profile'
     verbose_name = 'Profile App'
