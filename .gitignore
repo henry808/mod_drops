@@ -48,6 +48,7 @@ coverage.xml
 *.log
 migrations/
 user_profile/migrations/
+tmp/
 
 # Sphinx documentation
 docs/_build/
