@@ -5,4 +5,4 @@ http://{{ site.domain }}{% url 'registration_activate' activation_key %}
 This key is valid for {{ expiration_days }} days.
 
 Thanks,
-Imager Application
+Mod Drops
