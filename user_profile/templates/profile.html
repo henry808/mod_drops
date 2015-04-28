@@ -11,7 +11,7 @@
             <li>Birthday: {{ user.profile.birthday }}</li>
             <li>Image Count: {{ user.photos.count }}</li>
             <li>Album Count: {{ user.albums.count }}</li>
-            <li><a href="{% url 'profile_update' user.profile.pk %}">Edit</a></li>
+            <li><a href="{% url 'profile:profile_update' user.profile.pk %}">Edit</a></li>
         </ul>
     </div>
     {% endif %}

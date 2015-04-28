@@ -22,7 +22,7 @@ def profile(request):
 
 
 @login_required
-def profile_update_view(request, *args, **kwargs):
+def profile_update(request, *args, **kwargs):
     profile = UserProfile.objects.get(pk=kwargs['pk'])
     user = profile.user
     # import pdb; pdb.set_trace()
