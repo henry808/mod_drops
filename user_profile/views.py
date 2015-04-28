@@ -11,13 +11,13 @@ from user_profile.forms import ProfileForm
 
 @login_required
 def profile(request):
-    photo_count = len(request.user.photos.all())
-    album_count = len(request.user.albums.all())
-    follower_count = len(UserProfile.objects.filter(
-        follows=request.user.profile))
-    context = {'name': request.user, 'profileID': request.user.profile.id,
-               'photo_count': photo_count, "album_count": album_count,
-               "follower_count": follower_count}
+    # photo_count = len(request.user.photos.all())
+    # album_count = len(request.user.albums.all())
+    # follower_count = len(UserProfile.objects.filter(
+    #     following=request.user.profile))
+    context = {'name': request.user, 'profileID': request.user.profile.id}
+    #           'photo_count': photo_count, "album_count": album_count,
+    #           "follower_count": follower_count}
     return render(request, 'profile.html', context)
 
 
