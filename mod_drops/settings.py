@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'registration',
     'user_profile',
+    'image',
 )
 
 MIDDLEWARE_CLASSES = (
