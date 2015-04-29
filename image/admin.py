@@ -2,7 +2,7 @@ from django.contrib import admin
 from image.models import Image
 
 
-class PhotoAdmin(admin.ModelAdmin):
+class ImageAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Info', {'fields': ['user', 'title', 'description', 'source', 'year', 'category']}),
         ('Upload image', {'fields': ['picture']}),
@@ -17,3 +17,5 @@ class PhotoAdmin(admin.ModelAdmin):
         return obj.picture.size
     size.short_description = 'File size'
     size.admin_order = 'size'
+
+admin.site.register(Image, ImageAdmin)
