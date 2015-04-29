@@ -22,10 +22,13 @@ class Image(models.Model):
     for r in range(1955, datetime.datetime.now().year+1):
         YEAR_CHOICES.append((r, r))
 
+    help_text1 = 'please enter a year between 1955 and present'
+
     year = models.IntegerField(max_length=4, choices=YEAR_CHOICES,
                                default=1960,
-                               error_messages='not valid year',
-                               help_text='please enter a year between 1955 and present')
+                               error_messages={'required':
+                                               'Not a valid year.'},
+                               help_text=help_text1)
 
     description = models.TextField(max_length=(255), blank=True)
 
