@@ -1,5 +1,5 @@
 from django.contrib import admin
-from imager_images.models import Image
+from image.models import Image
 
 
 class PhotoAdmin(admin.ModelAdmin):
