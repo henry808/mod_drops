@@ -18,16 +18,17 @@ class Image(models.Model):
     title = models.CharField(max_length=(63), blank=True)
     source = models.CharField(max_length=(127), blank=True)
 
-    YEAR_CHOICES = []
+    UNKNOWN = 'unknown'   # if year is unknown
+
+    YEAR_CHOICES = [('unknown', 'unknown')]
     for r in range(1955, datetime.datetime.now().year+1):
-        YEAR_CHOICES.append((r, r))
+
+        YEAR_CHOICES.append((str(r), str(r)))
 
     help_text1 = 'please enter a year between 1955 and present'
 
-    year = models.IntegerField(max_length=4, choices=YEAR_CHOICES,
-                               default=1960,
-                               error_messages={'required':
-                                               'Not a valid year.'},
+    year = models.CharField(max_length=7, choices=YEAR_CHOICES,
+                               default=UNKNOWN,
                                help_text=help_text1)
 
     description = models.TextField(max_length=(255), blank=True)
@@ -39,9 +40,9 @@ class Image(models.Model):
     ICON = 'IC'     # pictures, or drawings of actors or actresses
 
     PRIVACY_CHOICES = (
-        (IMAGE, 'Private'),
-        (MUSIC, 'Shared'),
-        (MOVIE, 'Public'),
+        (IMAGE, 'Image'),
+        (MUSIC, 'Music'),
+        (MOVIE, 'Movie'),
         (FASHION, 'Fashion'),
         (ICON, 'Icon'),
     )
