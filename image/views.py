@@ -16,7 +16,13 @@ class StreamView(ListView):
 class UploadImage(CreateView):
     model = Image
     template_name = "upload_image.html"
-    fields = ['picture', 'title', 'description', 'published']
+    fields = ['picture',
+              'title',
+              'source',
+              'year',
+              'description',
+              'category',
+              'published']
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
@@ -36,7 +42,13 @@ class UploadImage(CreateView):
 class EditImage(UpdateView):
     model = Image
     template_name = "edit_image.html"
-    fields = ['title', 'description', 'published']
+    fields = ['picture',
+              'title',
+              'source',
+              'year',
+              'description',
+              'category',
+              'published']
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
