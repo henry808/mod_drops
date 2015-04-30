@@ -17,4 +17,8 @@ def viewable(self, user):
 # Return images belonging only to one user.
 @register.filter
 def viewable_user(self, user):
-    return Image.objects.filter(Q(user=user))
+    query = Image.objects.filter(Q(user=user))
+    if len(query) > 0:
+        return Image.objects.filter(Q(user=user))
+    else:
+        return []
