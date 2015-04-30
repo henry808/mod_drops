@@ -13,7 +13,7 @@
         <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="{{ STATIC_URL }}css/imager.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css/mod_drops.css" rel="stylesheet">
 
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -52,7 +52,7 @@
             </div>
         </nav>
         <div class="container">
-            <div class="imager-template">
+            <div class="mod_drops-template">
 
                 {% if user.is_authenticated %}
                     <h3 class="lead">User: {{ user.username }}</h3>
@@ -71,12 +71,12 @@
  <!--        <script src="{{ STATIC_URL }}/js/ie10-viewport-bug-workaround.js"></script> -->
     </body>
 </html>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(function () {
         console.log('loading in active')
         $("#index").parent().find("a:contains('Home')").parent().addClass('active');
-        $("#profile").parent().find("a:contains('Profile')").parent().addClass('active');
+        $("#profile").parent().find("a:contains('{{ user }}')").parent().addClass('active');
         $("#library").parent().find("a:contains('Library')").parent().addClass('active');
         $("#stream").parent().find("a:contains('Stream')").parent().addClass('active');
      });
-</script> -->
+</script>
