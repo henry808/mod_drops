@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+    {% if user.is_authenticated %}
+    {% load image_extras %}
+    <div id="stream">
+        <h3>Stream View</h3>
+        <ul>
+            <li>Username: {{ user.username }}</li>
+            <li><a href="{% url 'image:upload_image' %}">Upload new image</a></li>
+            {% for image in object_list|viewable:user %}
+                <li>
+                    <h3>Owner: {{ image.user.username }}</h3>
+                    <p>Date uploaded: {{ image.date_uploaded }}</p>
+                    <img src="{{ MEDIA_URL }}{{ image.picture }}">
+                    </li>
+                    {% if image.user = user %}
+                        <p><a href="{% url 'image:edit_image' image.pk %}">Edit</a></p>
+                    {% endif %}
+            {% endfor  %}
+        </ul>
+    </div>
+    {% endif %}
+{% endblock %}
