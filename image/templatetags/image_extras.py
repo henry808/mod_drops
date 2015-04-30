@@ -6,7 +6,7 @@ register = template.Library()
 
 
 # Custom filter, return images that are:
-#     public, shared, or belong to a logged in user
+#    public, shared, or belong to a logged in user
 @register.filter
 def viewable(self, user):
     query = Image.objects.filter(

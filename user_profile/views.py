@@ -35,9 +35,7 @@ def profile_update(request, *args, **kwargs):
             user.email = form.cleaned_data.get('email')
             user.save()
             return HttpResponseRedirect(
-                reverse(
-                    'profile:profile'
-                ))
+                reverse('profile:profile'))
     else:
         # For populating a form when a user navigates to page
         # using the edit link in the profile detail page...
