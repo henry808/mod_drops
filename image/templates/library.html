@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+    {% if user.is_authenticated %}
+    {% load image_extras %}
+        <div id="library">
+            <h4>Library View</h4>
+            <li><a href="{% url 'image:upload_image' %}">Upload new image</a></li>
+            <h3>Images</h3>
+            <ul>
+                {% for image in object_list|viewable_user:user %}
+                    <li>
+                        <p>Date uploaded: {{ image.date_uploaded }}</p>
+                        {{ image }}
+                        <img src="{{ MEDIA_URL }}{{ image.picture }}">
+
+                        {% if image.user = user %}
+                            <p><a href="{% url 'image:edit_image' image.pk %}">Edit</a></p>
+                        {% endif %}
+                    </li>
+                {% endfor  %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+<h2><img src="{{ MEDIA_URL }}{{ image.picture }}"></h2>

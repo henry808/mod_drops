@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'registration',
     'user_profile',
+    'image',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,6 +105,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "mod_drops/static/"),
     )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
