@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'registration',
     'user_profile',
     'image',
+    'sorl.thumbnail',
 )
 
 MIDDLEWARE_CLASSES = (
