@@ -13,7 +13,7 @@ class StreamView(ListView):
     template_name = "stream.html"
 
 
-class UploadImage(CreateView):
+class UploadImageView(CreateView):
     model = Image
     template_name = "upload_image.html"
     fields = ['picture',
@@ -38,7 +38,7 @@ class UploadImage(CreateView):
         return self.render_to_response({'form': form})
 
 
-class EditImage(UpdateView):
+class EditImageView(UpdateView):
     model = Image
     template_name = "edit_image.html"
     fields = ['picture',

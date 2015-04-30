@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-urlpatterns = patterns(
+urlpatterns = patterns('',
     url(r'^$', 'mod_drops.views.index', name='index'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^profile/', include('user_profile.urls', namespace='profile')),
