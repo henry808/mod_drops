@@ -5,7 +5,7 @@
         {% load thumbnail %}
         <div id="library">
             <h4>Library View</h4>
-            <li><a href="{% url 'upload_image' %}">Upload new image</a></li>
+            <li><a href="{% url 'image:upload_image' %}">Upload new image</a></li>
             <h3>Images</h3>
             <ul>
                 {% for image in object_list|viewable_user:user %}
@@ -17,7 +17,7 @@
                             <p>No image: {{ im }} {{ im.url }}</p>
                         {% endthumbnail %}
                         {% if image.user = user %}
-                            <p><a href="{% url 'edit_image' image.pk %}">Edit</a></p>
+                            <p><a href="{% url 'image:edit_image' image.pk %}">Edit</a></p>
                         {% endif %}
                     </li>
                 {% endfor  %}

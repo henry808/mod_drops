@@ -4,11 +4,11 @@ from image.views import StreamView, UploadImageView, EditImageView
 
 
 urlpatterns = patterns('',
-                       url(r'^stream/(?P<pk>\d+)$',
+                       url(r'^stream/$',
                            login_required(StreamView.as_view(
                                template_name='stream.html')),
                            name='stream'),
-                       url(r'^library/(?P<pk>\d+)$',
+                       url(r'^library/$',
                            'image.views.library_view',
                            name='library'),
                        url(r'^upload_image/$',

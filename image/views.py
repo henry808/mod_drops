@@ -33,8 +33,7 @@ class UploadImage(CreateView):
             image.save()
             return HttpResponseRedirect(
                 reverse(
-                    'library',
-                    kwargs={'pk': request.user.profile.pk}
+                    'image:library'
                 ))
         return self.render_to_response({'form': form})
 
@@ -58,8 +57,7 @@ class EditImage(UpdateView):
             form.save()
             return HttpResponseRedirect(
                 reverse(
-                    'library',
-                    kwargs={'pk': instance.user.profile.pk}
+                    'image:library'
                 ))
         return self.render_to_response({'form': form})
 
