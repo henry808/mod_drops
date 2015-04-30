@@ -49,6 +49,7 @@ coverage.xml
 migrations/
 user_profile/migrations/
 tmp/
+media/
 
 # Sphinx documentation
 docs/_build/

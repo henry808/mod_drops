@@ -11,13 +11,13 @@ from user_profile.forms import ProfileForm
 
 @login_required
 def profile(request):
-    # photo_count = len(request.user.photos.all())
-    # album_count = len(request.user.albums.all())
-    # follower_count = len(UserProfile.objects.filter(
-    #     following=request.user.profile))
-    context = {'name': request.user, 'profileID': request.user.profile.id}
-    #           'photo_count': photo_count, "album_count": album_count,
-    #           "follower_count": follower_count}
+    image_count = len(request.user.images.all())
+    follower_count = len(UserProfile.objects.filter(
+        following=request.user.profile))
+    context = {'name': request.user,
+               'profileID': request.user.profile.id,
+               'image_count': image_count,
+               'follower_count': follower_count}
     return render(request, 'profile.html', context)
 
 
@@ -25,7 +25,6 @@ def profile(request):
 def profile_update(request, *args, **kwargs):
     profile = UserProfile.objects.get(pk=kwargs['pk'])
     user = profile.user
-    # import pdb; pdb.set_trace()
     if request.method == 'POST':
         # For submission of form for updating information...
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -36,11 +35,7 @@ def profile_update(request, *args, **kwargs):
             user.email = form.cleaned_data.get('email')
             user.save()
             return HttpResponseRedirect(
-                reverse(
-                    'profile:profile'
-                    # ,
-                    # kwargs={'pk': request.user.profile.pk}
-                ))
+                reverse('profile:profile'))
     else:
         # For populating a form when a user navigates to page
         # using the edit link in the profile detail page...
