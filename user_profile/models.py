@@ -27,10 +27,7 @@ class UserProfile(models.Model):
     )
 
     # new fields
-    picture = models.ImageField(default=os.path.join(
-        STATIC_URL,
-        'images',
-        'default_profile_image.jpg'))
+    picture = models.ImageField(blank=True, null=True)
     birthday = models.DateField(default=datetime.date.today)
     phone = models.CharField(max_length=15, blank=True, null=True)
 
