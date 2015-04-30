@@ -48,6 +48,7 @@ coverage.xml
 *.log
 migrations/
 user_profile/migrations/
+tmp/
 
 # Sphinx documentation
 docs/_build/
@@ -61,3 +62,6 @@ fabfile.py
 # Credentials
 secrets.py
 secrets.conf
+
+# Misc
+.DS_Store
