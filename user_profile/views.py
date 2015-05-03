@@ -7,7 +7,13 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from user_profile.models import UserProfile
 from user_profile.forms import ProfileForm
+from django.views.generic import ListView
+from django.contrib.auth.models import User
 
+
+class OtherUsersView(ListView):
+    model = User
+    template_name = "other_users.html"
 
 @login_required
 def profile(request):
