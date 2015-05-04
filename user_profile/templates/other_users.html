@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 {% block body %}
     {% if user.is_authenticated %}
-    {% load image_extras %}
     <div id="other_users">
         <h3>Other users</h3>
         <ul>
             <li>Username: {{ user.username }}</li>
-            {% for other_user in object_list|viewable:user %}
+            {% for other_user in object_list %}          
+                {% if other_user = user %}
+                {% else %}
                 <li>
-                    {% if other_user = user %}
-                    {% else %}
-                    <h3>user</h3>  
-                    {% endif %}
+                    <h3>{{ other_user }}</h3>
                 </li>
+                {% endif %}          
             {% endfor  %}
         </ul>
     </div>
