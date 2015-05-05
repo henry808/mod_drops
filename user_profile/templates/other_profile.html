@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+    {% load staticfiles %}
+    {% if user.is_authenticated %}
+    <div id="profile">
+        <h1>Profile Detail View</h1>
+        <ul>
+            {% if other_user.profile.picture %}
+            <li><img src="{{other_user.profile.picture.url}}"></li>
+            {% else %}
+            <li><img src="{% static 'user_profile/images/default_profile_image.png' %}" alt="Profile Image"/></li>
+            {% endif %}
+            <li>Username: {{ other_user.username }}</li>
+            <li>First name: {{ other_user.first_name }}</li>
+            <li>Last name: {{ other_user.last_name }}</li>
+            <li>Phone: {{ other_user.profile.phone }}</li>
+            <li>Birthday: {{ other_user.profile.birthday }}</li>
+            <li>Image Count: {{ image_count }}</li>
+        </ul>
+    </div>
+    {% endif %}
+{% endblock %}

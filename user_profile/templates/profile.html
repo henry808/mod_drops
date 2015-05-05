@@ -16,10 +16,8 @@
             <li>Phone: {{ user.profile.phone }}</li>
             <li>Birthday: {{ user.profile.birthday }}</li>
             <li>Image Count: {{ image_count }}</li>
-            <li>Album Count: {{ user.albums.count }}</li>
             <li><a href="{% url 'profile:profile_update' user.profile.pk %}">Edit</a></li>
         </ul>
     </div>
     {% endif %}
 {% endblock %}
-<h1>Profile Detail View</h1>
