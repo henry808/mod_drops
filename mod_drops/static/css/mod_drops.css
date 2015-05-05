@@ -30,3 +30,7 @@ body {
 .other_portrait {
   height: 5em;
 }
+
+.portrait {
+  height: 15em;
+}
