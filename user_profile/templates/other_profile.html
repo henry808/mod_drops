@@ -24,6 +24,7 @@
                 <li>Birthday: {{ other_user.profile.birthday }}</li>
             {% endif %}
             <li>Public Photos: {{ image_count }}</li>
+            <li><a href="{% url 'image:gallery' other_user.pk %}">Gallery</a></li>
         </ul>
     </div>
     {% endif %}

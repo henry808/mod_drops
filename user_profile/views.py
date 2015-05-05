@@ -30,6 +30,7 @@ def profile(request):
 @login_required
 def other_profile(request, *args, **kwargs):
     user = User.objects.get(pk=kwargs['pk'])
+    # number of public images
     image_count = len(user.images.filter(published=Image.PUBLIC))
     follower_count = len(UserProfile.objects.filter(
         following=user.profile))
