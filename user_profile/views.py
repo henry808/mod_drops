@@ -10,6 +10,8 @@ from user_profile.forms import ProfileForm
 from django.views.generic import ListView
 from django.contrib.auth.models import User
 
+from image.models import Image
+
 
 class OtherUsersView(ListView):
     model = User
@@ -28,7 +30,7 @@ def profile(request):
 @login_required
 def other_profile(request, *args, **kwargs):
     user = User.objects.get(pk=kwargs['pk'])
-    image_count = len(user.images.all())
+    image_count = len(user.images.filter(published=Image.PUBLIC))
     follower_count = len(UserProfile.objects.filter(
         following=user.profile))
     context = {'other_user': user,

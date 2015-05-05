@@ -11,11 +11,12 @@
             <li><img class="portrait" src="{% static 'user_profile/images/default_profile_image.png' %}" alt="Profile Image"/></li>
             {% endif %}
             <li>Username: {{ user.username }}</li>
+            {% if user.profile. %}
             <li>First name: {{ user.first_name }}</li>
             <li>Last name: {{ user.last_name }}</li>
             <li>Phone: {{ user.profile.phone }}</li>
             <li>Birthday: {{ user.profile.birthday }}</li>
-            <li>Image Count: {{ image_count }}</li>
+            <li>Total photos: {{ image_count }}</li>
             <li><a href="{% url 'profile:profile_update' user.profile.pk %}">Edit</a></li>
         </ul>
     </div>
