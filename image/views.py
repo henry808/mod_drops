@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from image.templatetags.image_extras import viewable_other_user
 
 
 class StreamView(ListView):
@@ -75,7 +76,10 @@ def gallery_view(request, *args, **kwargs):
 
 
 @login_required
-def gallery_view(request, *args, **kwargs):
+def image_page(request, *args, **kwargs):
     image = Image.objects.get(pk=kwargs['pk'])
+    images = viewable_other_user(Image, image.user)
+    for i in images:
+        print i.pk
     context = {'image': image}
     return render(request, 'image_page.html', context)

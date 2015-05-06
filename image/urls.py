@@ -16,6 +16,6 @@ urlpatterns = patterns('',
     url(r'^edit_image/(?P<pk>\d+)$', login_required(EditImageView.as_view(
         template_name='edit_image.html')),
         name='edit_image'),
-    url(r'^image_page/(?P<pk>\d+)$', 'image.viewss.image_page',
+    url(r'^image_page/(?P<pk>\d+)$', 'image.views.image_page',
         name='image_page'),
 )

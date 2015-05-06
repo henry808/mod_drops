@@ -2,18 +2,14 @@
 {% if user.is_authenticated %}
     {% block body %}
     <div id = "image_page">
-        <h3>Upload an image</h3>
-        <li>
-            <p>Date uploaded: {{ image.date_uploaded }}</p>
-            <p>Source: {{ image.source }}</p>
-            <p>Year: {{ image.year }}</p>
-            <p>Image PK: {{ image.pk }}</p>
-            <img src="{{ im.url }}">
-
-            {% if image.user = user %}
-                <p><a href="{% url 'image:edit_image' image.pk %}">Edit</a></p>
-            {% endif %}
-        </li>
+        <h3>Image from user {{ image.user }}</h3>
+        <img src="{{ MEDIA_URL }}{{ image.picture }}">
+        <p>Source: {{ image.source }}</p>
+        <p>Year: {{ image.year }}</p>
+        <p>Image PK: {{ image.pk }}</p>
+        {% if image.user = user %}
+            <p><a href="{% url 'image:edit_image' image.pk %}">Edit</a></p>
+        {% endif %}
     </div>
     {% endblock %}
 {% endif %}
