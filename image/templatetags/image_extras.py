@@ -28,3 +28,13 @@ def viewable_user(self, user):
         return query
     else:
         return []
+
+# Return images belonging only to one user.
+@register.filter
+def viewable_other_user(self, user):
+    query = Image.objects.filter(Q(user=user) &
+            Q(published=Image.PUBLIC))
+    if len(query) > 0:
+        return query
+    else:
+        return []

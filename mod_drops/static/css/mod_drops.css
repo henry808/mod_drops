@@ -3,8 +3,9 @@ body {
   padding-left: 20px;
 }
 .mod_drops-template {
-  padding: 40px 15px;
+  padding: 5px 3px;
   text-align: center;
+  margin: 5px 5px;
 }
 
 .navbar-inverse {
@@ -29,4 +30,8 @@ body {
 
 .other_portrait {
   height: 5em;
+}
+
+.portrait {
+  height: 15em;
 }

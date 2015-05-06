@@ -10,11 +10,11 @@
                 {% if other_user = user %}
                 {% else %}
                 <li>
-                    <h3>{{ other_user }}</h3>
-                    {% if other_user.profile.picture %}
-                    <img class="other_portrait" src="{{ other_user.profile.picture.url }}"></li>
+                    <a href="{% url 'profile:other_profile' other_user.pk %}"><h3>{{ other_user }}</h3></a>
+                    {% if other_user.profile.picture and other_user.profile.pic_privacy == "PU" %}
+                    <a href="{% url 'profile:other_profile' other_user.pk %}"><img class="other_portrait" src="{{ other_user.profile.picture.url }}"></a></li>
                     {% else %}
-                    <img class="other_portrait" src="{% static 'user_profile/images/default_profile_image.png' %}" alt="Profile Image"/></li>
+                    <a href="{% url 'profile:other_profile' other_user.pk %}"><img class="other_portrait" src="{% static 'user_profile/images/default_profile_image.png' %}" alt="Profile Image"/></a></li>
                     {% endif %}
                 </li>
                 {% endif %}          

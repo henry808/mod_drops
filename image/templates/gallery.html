@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+    {% if user.is_authenticated %}
+    {% load image_extras %}
+    {% load thumbnail %}
+        <div id="gallery">
+            <h4>Gallery View for {{ other_user }}</h4>
+            <ul>
+                {% for image in object_list|viewable_other_user:other_user %}
+                    <li>
+                        <p>Date uploaded: {{ image.date_uploaded }}</p>
+                        <p>Source: {{ image.source }}</p>
+                        <p>Year: {{ image.year }}</p>
+                        {% thumbnail image.picture "80x80" as im %}
+                            <img src="{{ im.url }}">
+                        {% empty %}
+                            <p>No image: {{ im }} {{ im.url }}</p>
+                        {% endthumbnail %}
+                    </li>
+                {% endfor  %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

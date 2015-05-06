@@ -65,3 +65,10 @@ class EditImageView(UpdateView):
 @login_required
 def library_view(request, *args, **kwargs):
     return render(request, 'library.html', {})
+
+
+@login_required
+def gallery_view(request, *args, **kwargs):
+    user = User.objects.get(pk=kwargs['pk'])
+    context = {'other_user': user}
+    return render(request, 'gallery.html', context)

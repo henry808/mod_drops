@@ -45,7 +45,7 @@
                         <li><a href="{% url 'image:stream' %}">Stream</a></li>
                         <li><a href="{% url 'image:library' %}">Library</a></li>
                         <li><a href="{% url 'profile:profile' %}">{{user}}</a></li>
-                        <li><a href="{% url 'profile:other_users' %}">User List</a></li>
+                        <li><a href="{% url 'profile:other_users' %}">Other Users</a></li>
                         <li><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
                     {% endif %}
                   </ul>
@@ -58,7 +58,6 @@
                 {% if user.is_authenticated %}
                     <h3 class="lead">User: {{ user.username }}</h3>
                 {% endif %}
-                <p class="lead">Upload your mod images to Mod Drops.</p>
             </div>
         </div>
         {% block body %}
