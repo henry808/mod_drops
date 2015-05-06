@@ -72,3 +72,10 @@ def gallery_view(request, *args, **kwargs):
     user = User.objects.get(pk=kwargs['pk'])
     context = {'other_user': user}
     return render(request, 'gallery.html', context)
+
+
+@login_required
+def gallery_view(request, *args, **kwargs):
+    image = Image.objects.get(pk=kwargs['pk'])
+    context = {'image': image}
+    return render(request, 'image_page.html', context)
