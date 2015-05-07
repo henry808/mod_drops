@@ -10,7 +10,6 @@ urlpatterns = patterns('',
     url(r'^profile/', include('user_profile.urls', namespace='profile')),
     url(r'^image/', include('image.urls', namespace='image')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^comments/', include('django_comments.urls')),
 )
 
 if settings.DEBUG:
