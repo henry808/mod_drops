@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'mod_drops.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
-SITE_ID = 1111
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
