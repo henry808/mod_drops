@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from image.templatetags.image_extras import viewable_other_user
-
+from operator import attrgetter
 
 class StreamView(ListView):
     model = Image
@@ -79,7 +79,21 @@ def gallery_view(request, *args, **kwargs):
 def image_page(request, *args, **kwargs):
     image = Image.objects.get(pk=kwargs['pk'])
     images = viewable_other_user(Image, image.user)
-    for i in images:
+    s_images = sorted(images, key=attrgetter('pk'))
+    for i in s_images:
         print i.pk
-    context = {'image': image}
+    print "Index:" + str(s_images.index(image))
+    image_index = s_images.index(image)
+    # determine what images are previous and next:
+    if image_index > 0:
+        prev_i = s_images[image_index - 1].pk
+    else:     # set to -1 if already at first image
+        prev_i = -1
+    if image_index < len(s_images) - 1:
+        next_i = s_images[image_index + 1].pk
+    else:     # set to -1 if already at last image
+        next_i = -1
+    context = {'image': image,
+               'prev_i': prev_i,
+               'next_i': next_i}
     return render(request, 'image_page.html', context)
