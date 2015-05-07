@@ -14,7 +14,7 @@
                         <p>Source: {{ image.source }}</p>
                         <p>Year: {{ image.year }}</p>
                         {% thumbnail image.picture "80x80" as im %}
-                            <img src="{{ im.url }}">
+                            <a href="{% url 'image:image_page' image.pk %}" ><img src="{{ im.url }}"></a>
                         {% empty %}
                             <p>No image: {{ im }} {{ im.url }}</p>
                         {% endthumbnail %}
