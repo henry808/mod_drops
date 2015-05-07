@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% if user.is_authenticated %}
+    {% load threadedcomments_tags %}
     {% block body %}
     <div id = "image_page">
         <h3>Image from user {{ image.user }}</h3>
@@ -23,6 +24,9 @@
         {% else %}
             Last Image
         {% endif %}
+        <h2>Comments for {{ object.title }}:</h2>
+        {% render_comment_list for object %}
+        {% render_comment_form for object %}
         </div>
     </div>
     {% endblock %}

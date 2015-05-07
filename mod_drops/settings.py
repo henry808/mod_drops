@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'user_profile',
     'image',
     'sorl.thumbnail',
+    'django_comments',
+    'django.contrib.sites',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +85,7 @@ WSGI_APPLICATION = 'mod_drops.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
+SITE_ID = 1111
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
