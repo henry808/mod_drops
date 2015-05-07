@@ -80,9 +80,7 @@ def image_page(request, *args, **kwargs):
     image = Image.objects.get(pk=kwargs['pk'])
     images = viewable_other_user(Image, image.user)
     s_images = sorted(images, key=attrgetter('pk'))
-    for i in s_images:
-        print i.pk
-    print "Index:" + str(s_images.index(image))
+
     image_index = s_images.index(image)
     # determine what images are previous and next:
     if image_index > 0:
