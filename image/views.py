@@ -84,14 +84,14 @@ def image_page(request, *args, **kwargs):
     image_index = s_images.index(image)
     # determine what images are previous and next:
     if image_index > 0:
-        prev_i = s_images[image_index - 1].pk
+        prev_image = s_images[image_index - 1].pk
     else:     # set to -1 if already at first image
-        prev_i = -1
+        prev_image = -1
     if image_index < len(s_images) - 1:
-        next_i = s_images[image_index + 1].pk
+        next_image = s_images[image_index + 1].pk
     else:     # set to -1 if already at last image
-        next_i = -1
+        next_image = -1
     context = {'image': image,
-               'prev_i': prev_i,
-               'next_i': next_i}
+               'prev_image': prev_image,
+               'next_image': next_image}
     return render(request, 'image_page.html', context)

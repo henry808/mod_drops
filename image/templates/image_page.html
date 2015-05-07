@@ -10,16 +10,20 @@
         {% if image.user = user %}
             <p><a href="{% url 'image:edit_image' image.pk %}">Edit</a></p>
         {% endif %}
-        {% if not prev_i == -1 %}
-            <a href="{% url 'image:image_page' prev_i %}" >prev {{ prev_i }} </a>
+        <div class = "prev">
+        {% if not prev_image == -1 %}
+            <a href="{% url 'image:image_page' prev_image %}" >prev {{ prev_image }} </a>
         {% else %}
-            First
+            First Image
         {% endif %}
-        {% if not next_i == -1 %}
-            <a href="{% url 'image:image_page' next_i %}" >next {{ next_i }} </a>
+        </div>
+        <div class = "next">
+        {% if not next_image == -1 %}
+            <a href="{% url 'image:image_page' next_image %}" >next {{ next_image }} </a>
         {% else %}
-            Last
+            Last Image
         {% endif %}
+        </div>
     </div>
     {% endblock %}
 {% endif %}
