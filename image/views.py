@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from image.templatetags.image_extras import viewable_other_user
 from operator import attrgetter
 
+
 class StreamView(ListView):
     model = Image
     template_name = "stream.html"
@@ -95,46 +96,3 @@ def image_page(request, *args, **kwargs):
                'prev_image': prev_image,
                'next_image': next_image}
     return render(request, 'image_page.html', context)
-
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.shortcuts import resolve_url
-from django.utils.http import is_safe_url
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.response import TemplateResponse
-from django.utils.translation import ugettext as _
-
-@login_required
-def exit_image_page(request, next_page=None,
-           template_name='registration/logged_out.html',
-           redirect_field_name=REDIRECT_FIELD_NAME,
-           current_app=None, extra_context=None):
-    """
-    Logs out the user and displays 'You are logged out' message.
-    """
-
-    if next_page is not None:
-        next_page = resolve_url(next_page)
-
-    if (redirect_field_name in request.POST or
-            redirect_field_name in request.GET):
-        next_page = request.POST.get(redirect_field_name,
-                                     request.GET.get(redirect_field_name))
-        # Security check -- don't allow redirection to a different host.
-        if not is_safe_url(url=next_page, host=request.get_host()):
-            next_page = request.path
-
-    if next_page:
-        # Redirect to this page until the session has been cleared.
-        return HttpResponseRedirect(next_page)
-
-    current_site = get_current_site(request)
-    context = {
-        'site': current_site,
-        'site_name': current_site.name,
-        'title': _('Logged out')
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-    return TemplateResponse(request, template_name, context,
-        current_app=current_app)
-
