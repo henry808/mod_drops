@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'user_profile',
     'image',
     'sorl.thumbnail',
+    'disqus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -117,3 +118,6 @@ LOGIN_URL = '/accounts/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/activation'
+
+DISQUS_API_KEY = os.environ.get('DISQUS_API_KEY')
+DISQUS_WEBSITE_SHORTNAME = 'mod_drops'
