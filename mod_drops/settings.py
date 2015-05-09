@@ -120,4 +120,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/activation'
 
 DISQUS_API_KEY = os.environ.get('DISQUS_API_KEY')
-DISQUS_WEBSITE_SHORTNAME = 'mod_drops'
+DISQUS_WEBSITE_SHORTNAME = 'moddrop'
