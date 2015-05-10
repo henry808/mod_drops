@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from image.templatetags.image_extras import viewable_other_user
 from operator import attrgetter
+from image.disqus import get_disqus_sso
+import pprint
 
 
 class StreamView(ListView):
@@ -78,6 +80,7 @@ def gallery_view(request, *args, **kwargs):
 
 @login_required
 def image_page(request, *args, **kwargs):
+
     image = Image.objects.get(pk=kwargs['pk'])
     images = viewable_other_user(Image, image.user)
     s_images = sorted(images, key=attrgetter('pk'))
@@ -93,11 +96,16 @@ def image_page(request, *args, **kwargs):
     else:     # set to -1 if already at last image
         next_image = -1
 
-    #  create identifier for disqus to use
+    #  create image identifier for disqus to use for comments
     identifier = "".join(["image", str(image.pk)])
+
+    #  create disqus sso for user
+    user_sso = get_disqus_sso(request.user)
+
+    pprint(user_sso)
 
     context = {'image': image,
                'prev_image': prev_image,
                'next_image': next_image,
-               'image_identifier': identifier}  # for comments
+               'image_identifier': identifier}
     return render(request, 'image_page.html', context)

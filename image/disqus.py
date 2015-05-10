@@ -7,11 +7,12 @@ from mod_drops.settings import DISQUS_SECRET_KEY, DISQUS_PUBLIC_KEY
 
 
 def get_disqus_sso(user):
+
     # create a JSON packet of our data attributes
     data = simplejson.dumps({
-        'id': user['id'],
-        'username': user['username'],
-        'email': user['email'],
+        'id': user.pk,
+        'username': user.username,
+        'email': user.email,
     })
     # encode the data to base64
     message = base64.b64encode(data)
