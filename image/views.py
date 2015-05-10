@@ -94,5 +94,6 @@ def image_page(request, *args, **kwargs):
         next_image = -1
     context = {'image': image,
                'prev_image': prev_image,
-               'next_image': next_image}
+               'next_image': next_image,
+               'image_identifier': str(image.pk)}  # for comments
     return render(request, 'image_page.html', context)

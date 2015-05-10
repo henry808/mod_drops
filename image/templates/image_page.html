@@ -2,6 +2,7 @@
 {% if user.is_authenticated %}
     {% block body %}
     {% load disqus_tags %}
+    {% set_disqus_identifier image_identifier %}
     <div id = "image_page">
         <h3>Image from user {{ image.user }}</h3>
         <img src="{{ MEDIA_URL }}{{ image.picture }}">
@@ -24,8 +25,8 @@
         {% else %}
             Last Image
         {% endif %}
-        {% disqus_show_comments %}
         </div>
+        {% disqus_show_comments %}
     </div>
     {% endblock %}
 {% endif %}
