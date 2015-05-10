@@ -119,5 +119,6 @@ LOGIN_URL = '/accounts/login/'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/activation'
 
-DISQUS_API_KEY = os.environ.get('DISQUS_API_KEY')
+DISQUS_SECRET_KEY = os.environ.get('DISQUS_SECRET_KEY')
+DISQUS_PUBLIC_KEY = os.environ.get('DISQUS_PUBLIC_KEY')
 DISQUS_WEBSITE_SHORTNAME = 'moddrop'
