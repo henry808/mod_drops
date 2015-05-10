@@ -92,8 +92,12 @@ def image_page(request, *args, **kwargs):
         next_image = s_images[image_index + 1].pk
     else:     # set to -1 if already at last image
         next_image = -1
+
+    #  create identifier for disqus to use
+    identifier = "".join(["image", str(image.pk)])
+
     context = {'image': image,
                'prev_image': prev_image,
                'next_image': next_image,
-               'image_identifier': str(image.pk)}  # for comments
+               'image_identifier': identifier}  # for comments
     return render(request, 'image_page.html', context)
