@@ -26,6 +26,7 @@
             Last Image
         {% endif %}
         </div>
+        {{ user_sso|safe }}
         {% disqus_show_comments %}
     </div>
     {% endblock %}

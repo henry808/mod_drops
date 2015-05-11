@@ -18,6 +18,7 @@ def get_disqus_sso(user):
     message = base64.b64encode(data)
     # generate a timestamp for signing the message
     timestamp = int(time.time())
+
     # generate our hmac signature
     sig = hmac.HMAC(DISQUS_SECRET_KEY, '%s %s' % (message, timestamp), hashlib.sha1).hexdigest()
 

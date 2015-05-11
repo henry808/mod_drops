@@ -102,10 +102,11 @@ def image_page(request, *args, **kwargs):
     #  create disqus sso for user
     user_sso = get_disqus_sso(request.user)
 
-    pprint(user_sso)
+    print user_sso
 
     context = {'image': image,
                'prev_image': prev_image,
                'next_image': next_image,
-               'image_identifier': identifier}
+               'image_identifier': identifier,
+               'user_sso': user_sso}
     return render(request, 'image_page.html', context)
