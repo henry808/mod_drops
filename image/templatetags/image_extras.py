@@ -24,7 +24,7 @@ def viewable(self, user):
 
 # Return all images belonging only to one user.
 @register.filter
-def viewable_user(self, user):
+def viewable_all(self, user):
     query = Image.objects.filter(Q(user=user))
     orders = ['pk']
     result = query.order_by(*orders)
@@ -35,7 +35,7 @@ def viewable_user(self, user):
 
 # Return public images belonging only to one user.
 @register.filter
-def viewable_other_user(self, user):
+def viewable_public(self, user):
     query = Image.objects.filter(Q(user=user) &
             Q(published=Image.PUBLIC))
     orders = ['pk']

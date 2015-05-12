@@ -6,7 +6,7 @@
         <div id="gallery">
             <h4>Gallery View for {{ other_user }}</h4>
             <ul>
-                {% for image in object_list|viewable_other_user:other_user %}
+                {% for image in object_list|viewable_public:other_user %}
                     <li>
                         <p>Date uploaded: {{ image.date_uploaded }}</p>
                         <p>Source: {{ image.source }}</p>

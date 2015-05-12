@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from image.templatetags.image_extras import viewable_other_user
+from image.templatetags.image_extras import viewable_public
 from operator import attrgetter
 from image.disqus import get_disqus_sso
 import pprint
@@ -82,7 +82,7 @@ def gallery_view(request, *args, **kwargs):
 def image_page(request, *args, **kwargs):
 
     image = Image.objects.get(pk=kwargs['pk'])
-    images = viewable_other_user(Image, image.user)
+    images = viewable_public(Image, image.user)
     s_images = sorted(images, key=attrgetter('pk'))
 
     image_index = s_images.index(image)
