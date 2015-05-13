@@ -89,3 +89,94 @@ class ImagerTestCase(TestCase):
         self.assertEqual(isinstance(bill_str, str), True)
         self.assertEqual(isinstance(bill_unicode, unicode), True)
 
+
+class ImagerFollowTestCase(TestCase):
+    def setUp(self):
+        self.bill = User(username='bill')
+        self.sally = User(username='sally')
+        self.tracy = User(username='tracy')
+        self.bill.save()
+        self.sally.save()
+        self.tracy.save()
+
+    def test_followers_empty(self):
+        """ test to makes sure followers works on an empty set"""
+        sally = self.sally.profile
+        bill = self.bill.profile
+        self.assertEqual(bill.followers.count(), 0)
+        self.assertEqual(sally.followers.count(), 0)
+        self.assertEqual(bool(bill.followers.all()), False)
+        self.assertEqual(bool(sally.followers.all()), False)
+
+    def test_following_empty(self):
+        """ test to makes sure following works on an empty set"""
+        sally = self.sally.profile
+        bill = self.bill.profile
+        self.assertEqual(bill.following.count(), 0)
+        self.assertEqual(sally.following.count(), 0)
+
+    def test_followers_query(self):
+        """Tests to see if followers manager retrieves the right QuerySet
+        Checks the case where two people follow a different person.
+        """
+        sally = self.sally.profile
+        bill = self.bill.profile
+        tracy = self.tracy.profile
+        bill.follow(sally)
+        tracy.follow(sally)
+        # make sure both bill and tracy are followers of sally
+        self.assertEqual(sally.followers.count(), 2)
+        self.assertEqual(bill in sally.followers.all(), True)
+        self.assertEqual(tracy in sally.followers.all(), True)
+        # make sure followers is one way
+        self.assertEqual(sally in bill.followers.all(), False)
+        self.assertEqual(sally in tracy.followers.all(), False)
+        self.assertEqual(bill.followers.count(), 0)
+        self.assertEqual(tracy.followers.count(), 0)
+
+    def test_following_query(self):
+        """Tests to see if following manager retrieves the right QuerySet"""
+        sally = self.sally.profile
+        bill = self.bill.profile
+        tracy = self.tracy.profile
+        bill.follow(sally)
+        bill.follow(tracy)
+        # make sure  bill following both tracy and sally
+        self.assertEqual(bill.following.count(), 2)
+        self.assertEqual(sally in bill.following.all(), True)
+        self.assertEqual(tracy in bill.following.all(), True)
+        # make sure following is one way
+        self.assertEqual(sally.following.count(), 0)
+        self.assertEqual(tracy.following.count(), 0)
+        self.assertEqual(bill in tracy.following.all(), False)
+        self.assertEqual(bill in sally.following.all(), False)
+
+    def test_follow(self):
+        """Tests that follow works."""
+        sally = self.sally.profile
+        bill = self.bill.profile
+        bill.follow(sally)
+        self.assertEqual(bill.following.count(), 1)
+        self.assertEqual(sally in bill.following.all(), True)
+        self.assertEqual(sally.followers.count(), 1)
+        self.assertEqual(bill in sally.followers.all(), True)
+
+    def test_unfollow(self):
+        """Tests that unfollow works."""
+        sally = self.sally.profile
+        bill = self.bill.profile
+        bill.follow(sally)
+        # unfollow and then make sure turned off on both sides
+        bill.unfollow(sally)
+        self.assertEqual(bill.following.count(), 0)
+        self.assertEqual(sally in bill.following.all(), False)
+        self.assertEqual(sally.followers.count(), 0)
+        self.assertEqual(bill in sally.followers.all(), False)
+
+    def test_unfollow_not_followed(self):
+        """"Test that unfollow throws ValueError if that follow was not there"""
+        sally = self.sally.profile
+        bill = self.bill.profile
+        with self.assertRaises(ValueError):
+            bill.unfollow(sally)
+
