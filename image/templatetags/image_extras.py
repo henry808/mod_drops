@@ -5,7 +5,7 @@ from django.db.models import Q
 register = template.Library()
 
 
-# Custom filter, return images that are:
+# Custom filter, return all images that are:
 #    public, shared, or belong to a logged in user
 @register.filter
 def viewable(self, user):
@@ -14,27 +14,33 @@ def viewable(self, user):
         Q(published=Image.SHARED) |
         Q(published=Image.PUBLIC)
         )
-    if len(query) > 0:
-        return query
+    orders = ['pk']
+    result = query.order_by(*orders)
+    if len(result) > 0:
+        return result
     else:
         return []
 
 
-# Return images belonging only to one user.
+# Return all images belonging only to one user.
 @register.filter
-def viewable_user(self, user):
+def viewable_all(self, user):
     query = Image.objects.filter(Q(user=user))
-    if len(query) > 0:
-        return query
+    orders = ['pk']
+    result = query.order_by(*orders)
+    if len(result) > 0:
+        return result
     else:
         return []
 
-# Return images belonging only to one user.
+# Return public images belonging only to one user.
 @register.filter
-def viewable_other_user(self, user):
+def viewable_public(self, user):
     query = Image.objects.filter(Q(user=user) &
             Q(published=Image.PUBLIC))
-    if len(query) > 0:
-        return query
+    orders = ['pk']
+    result = query.order_by(*orders)
+    if len(result) > 0:
+        return result
     else:
         return []

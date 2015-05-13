@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'user_profile',
     'image',
     'sorl.thumbnail',
+    'disqus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,7 +84,6 @@ WSGI_APPLICATION = 'mod_drops.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -118,3 +118,7 @@ LOGIN_URL = '/accounts/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/activation'
+
+DISQUS_SECRET_KEY = os.environ.get('DISQUS_SECRET_KEY')
+DISQUS_PUBLIC_KEY = os.environ.get('DISQUS_PUBLIC_KEY')
+DISQUS_WEBSITE_SHORTNAME = 'moddrop'

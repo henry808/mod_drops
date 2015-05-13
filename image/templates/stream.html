@@ -7,7 +7,7 @@
         <ul>
             <li>Username: {{ user.username }}</li>
             <li><a href="{% url 'image:upload_image' %}">Upload new image</a></li>
-            {% for image in object_list|viewable:user %}
+            {% for image in object_list|viewable_all_users:user %}
                 <li>
                     <h3>Owner: {{ image.user.username }}</h3>
                     <p>Date uploaded: {{ image.date_uploaded }}</p>
