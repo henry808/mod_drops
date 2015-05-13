@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
-from mod_drops.settings import STATIC_URL
 import datetime
 import os
 from django.core.validators import RegexValidator
@@ -60,12 +59,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-
     # Create a manager
     objects = models.Manager()
     active = ActiveProfileManager()
-
-
 
     # Following
     def follow(self, other):
