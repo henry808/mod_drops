@@ -266,3 +266,56 @@ class ImagerRegistration(TestCase):
         user1 = User.objects.get(username='ted')
         # user is not active after activating with a bad key
         self.assertFalse(user1.is_active)
+
+
+class UserProfileViewTestCase(TestCase):
+    def setUp(self):
+        # Setup a couple users with some content
+        self.user = User(username='user1')
+        self.user.set_password('pass')
+        self.user.save()
+        self.user.profile.phone = 1234567
+        self.user.profile.save()
+        # self.profile = ImagerProfile(user=self.user, phone=1234567)
+        # self.profile.save()
+
+        self.another_user = User(username='user2')
+        self.another_user.set_password('shall_not')
+        self.another_user.save()
+        self.another_user.profile.phone = 7654321
+        self.another_user.profile.save()
+        # self.another_profile = ImagerProfile(user=self.another_user, phone=7654321)
+        # self.another_profile.save()
+
+        self.photo1 = ImageFactory(user=self.user, published='PU')
+        self.photo1.picture = 'something'
+        self.photo1.save()
+        self.photo2 = ImageFactory(user=self.user, published='PR')
+        self.photo2.picture = 'else'
+        self.photo2.save()
+
+        self.client = Client()
+
+
+    def test_user1_profile_view_self(self):
+        # Login
+        self.client.login(username='user1', password='pass')
+
+        # Verify user1 sees his own information
+        response = self.client.get(reverse('profile:profile'))
+        self.assertIn(self.user.username, response.content)
+        self.assertIn(str(self.user.profile.phone), response.content)
+
+    def test_user1_profile_view_other(self):
+        # Login
+        self.client.login(username='user1', password='pass')
+
+        # Verify user1 doesn't see user2's information
+        response = self.client.get(reverse('profile:profile'))
+        # user1 sees user1's info
+        self.assertIn(self.user.username, response.content)
+        self.assertIn(str(self.user.profile.phone), response.content)
+
+        # But not user2's
+        self.assertNotIn(self.another_user.username, response.content)
+        self.assertNotIn(str(self.another_user.profile.phone), response.content)
