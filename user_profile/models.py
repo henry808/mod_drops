@@ -63,6 +63,10 @@ class UserProfile(models.Model):
     objects = models.Manager()
     active = ActiveProfileManager()
 
+    # profile manager for active users
+    objects = models.Manager()
+    active = ActiveProfileManager()
+
     # Following
     def follow(self, other):
         self.following.add(other)
