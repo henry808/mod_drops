@@ -217,7 +217,7 @@ class ImagerRegistration(TestCase):
 
     def test_library_security(self):
         pk = str(self.user['bill'].pk)
-        response = self.client1.post('/images/library/' + pk)
+        response = self.client1.post('/image/library/')
         self.assertEqual(response.status_code, 302)
 
     def test_submitting_registration(self):
