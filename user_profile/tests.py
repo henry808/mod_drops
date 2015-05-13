@@ -298,6 +298,7 @@ class UserProfileViewTestCase(TestCase):
 
 
     def test_user1_profile_view_self(self):
+        """See self in profile view"""
         # Login
         self.client.login(username='user1', password='pass')
 
@@ -307,6 +308,7 @@ class UserProfileViewTestCase(TestCase):
         self.assertIn(str(self.user.profile.phone), response.content)
 
     def test_user1_profile_view_other(self):
+        """Don't see other in profile view"""
         # Login
         self.client.login(username='user1', password='pass')
 
@@ -319,3 +321,17 @@ class UserProfileViewTestCase(TestCase):
         # But not user2's
         self.assertNotIn(self.another_user.username, response.content)
         self.assertNotIn(str(self.another_user.profile.phone), response.content)
+
+    def test_user1_profile_other_view(self):
+        """See other in other profile view"""
+        # Login
+        self.client.login(username='user1', password='pass')
+
+        # Verify user1 doesn't see user2's information
+        response = self.client.get(
+            reverse('profile:other_profile',
+                    kwargs={'pk': self.users['user2'].profile.pk}))
+        # user1 sees user2's info
+        self.assertIn(self.another_user.username, response.content)
+        self.assertIn(str(self.another_user.profile.phone), response.content)
+
