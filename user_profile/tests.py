@@ -283,6 +283,7 @@ class UserProfileViewTestCase(TestCase):
         self.another_user.set_password('shall_not')
         self.another_user.save()
         self.another_user.profile.phone = 7654321
+        self.another_user.profile.phone_privacy = 'PU'
         self.another_user.profile.save()
         # self.another_profile = ImagerProfile(user=self.another_user, phone=7654321)
         # self.another_profile.save()
@@ -330,8 +331,8 @@ class UserProfileViewTestCase(TestCase):
         # Verify user1 doesn't see user2's information
         response = self.client.get(
             reverse('profile:other_profile',
-                    kwargs={'pk': self.users['user2'].profile.pk}))
+                    kwargs={'pk': self.another_user.profile.pk}))
         # user1 sees user2's info
         self.assertIn(self.another_user.username, response.content)
+        # make sure phone that was set to public is displayed
         self.assertIn(str(self.another_user.profile.phone), response.content)
-
