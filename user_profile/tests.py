@@ -589,7 +589,7 @@ class BadUser(LiveServerTestCase):
         self.assertIn('Log in', self.driver.page_source)
 
     def test_upload_photo_redirect(self):
-        self.driver.get(self.live_server_url + reverse('upload_photo'))
+        self.driver.get(self.live_server_url + reverse('image:upload_photo'))
         self.assertIn('Log in', self.driver.page_source)
 
     def test_edit_photo_hack(self):
@@ -605,11 +605,11 @@ class BadUser(LiveServerTestCase):
 
         self.login('user2', 'password2')
 
-        self.driver.get(self.live_server_url + reverse('edit_image', kwargs={'pk': photo.pk}))
+        self.driver.get(self.live_server_url + reverse('image:edit_image', kwargs={'pk': photo.pk}))
         self.assertIn('Log in', self.driver.page_source)
 
     def test_edit_album_redirect(self):
-        self.driver.get(self.live_server_url + reverse('library'))
+        self.driver.get(self.live_server_url + reverse('image:library'))
         self.assertIn('Log in', self.driver.page_source)
 
 
