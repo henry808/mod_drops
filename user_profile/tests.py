@@ -631,4 +631,4 @@ class BadUser(LiveServerTestCase):
     def login(self, user, password):
         self.driver.get(self.live_server_url + reverse('auth_login'))
         namefield = self.driver.find_element_by_id('id_username').send_keys(user)
-        passfield = self.drvier.find_element_by_id('id_password').send_keys(password)
+        passfield = self.driver.find_element_by_id('id_password').send_keys(password)
