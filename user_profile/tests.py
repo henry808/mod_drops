@@ -367,7 +367,7 @@ class UserProfileUpdateTestCase(TestCase):
         self.client.login(username='user1', password='pass')
 
         # Verify user1 sees his own information
-        response = self.client.get(reverse('profile_update', kwargs={'pk': self.users['user1'].profile.pk}))
+        response = self.client.get(reverse('profile:profile_update', kwargs={'pk': self.users['user1'].profile.pk}))
         self.assertIn(self.users['user1'].username, response.content)
         self.assertIn(str(self.users['user1'].profile.phone), response.content)
 
@@ -377,7 +377,7 @@ class UserProfileUpdateTestCase(TestCase):
         self.client.login(username='user1', password='pass')
 
         # Verify user1 doesn't see user2's information
-        response = self.client.get(reverse('profile_update', kwargs={'pk': self.users['user1'].profile.pk}))
+        response = self.client.get(reverse('profile:profile_update', kwargs={'pk': self.users['user1'].profile.pk}))
         # user1 sees user1's info
         self.assertIn(self.users['user1'].username, response.content)
         self.assertIn(str(self.users['user1'].profile.phone), response.content)
@@ -392,7 +392,7 @@ class UserProfileUpdateTestCase(TestCase):
         self.client.login(username='user1', password='pass')
 
         # Verify user1 sees his own information
-        response = self.client.get(reverse('profile_update', kwargs={'pk': self.users['user1'].profile.pk}))
+        response = self.client.get(reverse('profile:profile_update', kwargs={'pk': self.users['user1'].profile.pk}))
         # make sure reponse it OK
         self.assertEquals(response.status_code, 200)
         # Verify user1 sees his own information
@@ -401,7 +401,7 @@ class UserProfileUpdateTestCase(TestCase):
 
         # post form data
         response = self.client.post(
-            reverse('profile_update', kwargs={'pk': self.users['user1'].profile.pk}),
+            reverse('profile:profile_update', kwargs={'pk': self.users['user1'].profile.pk}),
             {'phone': 678,
              'first_name': 'Jim',
              'last_name': 'Gordon',
@@ -419,7 +419,7 @@ class UserProfileUpdateTestCase(TestCase):
         self.assertEquals(self.users['user1'].last_name, 'Gordon')
         self.assertEquals(self.users['user1'].email, 'user1@user1.com')
         # Changes to ImagerProfile
-        self.assertEquals(self.users['user1'].profile.phone, 678)
+        self.assertEquals(self.users['user1'].profile.phone, '678')
         self.assertEquals(self.users['user1'].profile.birthday,
                           datetime.date(1980, 3, 15))
         # Goes back to profile view after
