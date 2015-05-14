@@ -567,6 +567,9 @@ class UserProfileDetailTestCase(LiveServerTestCase):
 
 
 class BadUser(LiveServerTestCase):
+    """ Make sure that other user can't do things they should
+        not be able to.
+    """
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.user = User(username='user1')
@@ -602,24 +605,13 @@ class BadUser(LiveServerTestCase):
 
         self.login('user2', 'password2')
 
-        self.driver.get(self.live_server_url + reverse('edit_photo', kwargs={'pk': photo.pk}))
+        self.driver.get(self.live_server_url + reverse('edit_image', kwargs={'pk': photo.pk}))
         self.assertIn('Log in', self.driver.page_source)
 
     def test_edit_album_redirect(self):
-        self.driver.get(self.live_server_url + reverse('library', kwargs={'pk': self.user.profile.pk}))
+        self.driver.get(self.live_server_url + reverse('library'))
         self.assertIn('Log in', self.driver.page_source)
 
-    def test_edit_album_hack(self):
-        other = User(username='user2')
-        other.set_password('password2')
-        other.save()
-        other.profile.phone = 7654321
-        other.profile.save()
-
-        self.login('user2', 'password2')
-
-        self.driver.get(self.live_server_url + reverse('library', kwargs={'pk': self.user.profile.pk}))
-        self.assertIn('Log in', self.driver.page_source)
 
     def test_bad_login_redirect(self):
         self.driver.get(self.live_server_url + reverse('auth_login'))
