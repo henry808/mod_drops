@@ -478,7 +478,7 @@ class UserProfileDetailTestCase(LiveServerTestCase):
         self.user.profile.email_privacy = 'PR'
         self.user.profile.save()
         self.login_user()
-        link = self.driver.find_element_by_link_text('Profile')
+        link = self.driver.find_element_by_link_text(str(self.user.username))
         link.click()
         self.assertIn("Profile Detail View", self.driver.page_source)
         link = self.driver.find_element_by_link_text('Edit')
@@ -510,7 +510,7 @@ class UserProfileDetailTestCase(LiveServerTestCase):
         """Test to make sure all data in a filled out form saves properly"""
         self.user.save()
         self.login_user()
-        link = self.driver.find_element_by_link_text('Profile')
+        link = self.driver.find_element_by_link_text(str(self.user.username))
         link.click()
         self.assertIn("Profile Detail View", self.driver.page_source)
         link = self.driver.find_element_by_link_text('Edit')
@@ -589,7 +589,7 @@ class BadUser(LiveServerTestCase):
         self.assertIn('Log in', self.driver.page_source)
 
     def test_upload_photo_redirect(self):
-        self.driver.get(self.live_server_url + reverse('image:upload_photo'))
+        self.driver.get(self.live_server_url + reverse('image:upload_image'))
         self.assertIn('Log in', self.driver.page_source)
 
     def test_edit_photo_hack(self):
