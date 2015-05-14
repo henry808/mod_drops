@@ -569,8 +569,8 @@ class UserProfileDetailTestCase(LiveServerTestCase):
 class BadUser(LiveServerTestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.user = User(username='hi')
-        self.user.set_password('goodbye')
+        self.user = User(username='user1')
+        self.user.set_password('password1')
         self.user.save()
         self.user.profile.phone = 1234567
         self.user.profile.save()
@@ -580,10 +580,9 @@ class BadUser(LiveServerTestCase):
         self.driver.quit()
 
     def test_profile_redirect(self):
-        self.driver.get(self.live_server_url + reverse('profile_detail', kwargs={'pk': self.user.profile.pk}))
-        # import pdb; pdb.set_trace()
+        self.driver.get(self.live_server_url + reverse('profile:profile'))
         self.assertIn('Log in', self.driver.page_source)
-        self.driver.get(self.live_server_url + reverse('profile_update', kwargs={'pk': self.user.profile.pk}))
+        self.driver.get(self.live_server_url + reverse('profile:profile'))
         self.assertIn('Log in', self.driver.page_source)
 
     def test_upload_photo_redirect(self):
@@ -595,13 +594,13 @@ class BadUser(LiveServerTestCase):
         photo.picture = 'else'
         photo.save()
 
-        other = User(username='guy')
-        other.set_password('something')
+        other = User(username='user2')
+        other.set_password('password2')
         other.save()
         other.profile.phone = 7654321
         other.profile.save()
 
-        self.login('guy', 'something')
+        self.login('user2', 'password2')
 
         self.driver.get(self.live_server_url + reverse('edit_photo', kwargs={'pk': photo.pk}))
         self.assertIn('Log in', self.driver.page_source)
@@ -611,13 +610,13 @@ class BadUser(LiveServerTestCase):
         self.assertIn('Log in', self.driver.page_source)
 
     def test_edit_album_hack(self):
-        other = User(username='guy')
-        other.set_password('something')
+        other = User(username='user2')
+        other.set_password('password2')
         other.save()
         other.profile.phone = 7654321
         other.profile.save()
 
-        self.login('guy', 'something')
+        self.login('user2', 'password2')
 
         self.driver.get(self.live_server_url + reverse('library', kwargs={'pk': self.user.profile.pk}))
         self.assertIn('Log in', self.driver.page_source)
