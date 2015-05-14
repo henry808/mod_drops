@@ -18,7 +18,10 @@ from image.models import Image
 # from selenium.webdriver.support.ui import WebDriverWait
 import os
 
-# Test_File_Location = os.path.join(STATIC_URL, "Testimage.jpg")
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+
+Test_File_Location = os.path.join(STATIC_URL, "user_profile/images/Testimage.jpg")
 
 TEST_DOMAIN_NAME = "http://127.0.0.1:8081"
 
@@ -424,3 +427,208 @@ class UserProfileUpdateTestCase(TestCase):
                           datetime.date(1980, 3, 15))
         # Goes back to profile view after
         self.assertIn('Profile Detail View', response.content)
+
+
+class UserProfileDetailTestCase(LiveServerTestCase):
+    """This class is for testing user login form, and profile form"""
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        super(UserProfileDetailTestCase, self).setUp
+        self.user = User(username='user1')
+        self.user.set_password('pass')
+        self.user.is_active = True
+
+    def tearDown(self):
+        self.driver.refresh()
+        self.driver.quit()
+        super(UserProfileDetailTestCase, self).tearDown()
+
+    def test_goto_homepage(self):
+        self.driver.get(self.live_server_url)
+        self.assertIn("Home", self.driver.title)
+
+    def login_user(self):
+        """login user"""
+        self.driver.get(TEST_DOMAIN_NAME + reverse('auth_login'))
+        username_field = self.driver.find_element_by_id('id_username')
+        username_field.send_keys('user1')
+        password_field = self.driver.find_element_by_id('id_password')
+        password_field.send_keys('pass')
+        form = self.driver.find_element_by_tag_name('form')
+        form.submit()
+
+
+    def test_login(self):
+        self.user.save()
+        self.login_user()
+        self.assertIn("Home", self.driver.title)
+        self.assertIn("user1", self.driver.page_source)
+
+    def test_profile_populates(self):
+        self.user.first_name = "user_first"
+        self.user.last_name = "user_last"
+        self.user.email = "email@email.com"
+        self.user.save()
+        self.user.profile.phone = 1234
+        self.user.profile.birthday = datetime.date(1980, 3, 15)
+        self.user.profile.pic_privacy = 'PU'
+        self.user.profile.birthday_privacy = 'PR'
+        self.user.profile.phone_privacy = 'PU'
+        self.user.profile.name_privacy = 'PR'
+        self.user.profile.email_privacy = 'PR'
+        self.user.profile.save()
+        self.login_user()
+        link = self.driver.find_element_by_link_text('Profile')
+        link.click()
+        self.assertIn("Profile Detail View", self.driver.page_source)
+        link = self.driver.find_element_by_link_text('Edit')
+        link.click()
+        # Profile page: see if user info is populated
+        info_list = [('id_email', self.user.email),
+                     ('id_first_name', self.user.first_name),
+                     ('id_last_name', self.user.last_name)]
+        for info in info_list:
+            field = self.driver.find_element_by_id(info[0])
+            self.assertIn(str(info[1]), field.get_attribute('value'))
+        # Profile page: see if profile info is populated
+        info_list = [('id_phone', self.user.profile.phone),
+                     ('id_birthday', self.user.profile.birthday),
+                     ('id_pic_privacy', self.user.profile.pic_privacy),
+                     ('id_birthday_privacy', self.user.profile.birthday_privacy),
+                     ('id_phone_privacy', self.user.profile.phone_privacy),
+                     ('id_name_privacy', self.user.profile.name_privacy),
+                     ('id_email_privacy', self.user.profile.email_privacy),
+                     ('id_picture', self.user.profile.picture.name)]
+        for info in info_list:
+            field = self.driver.find_element_by_id(info[0])
+            if info[0] == 'id_picture':
+                self.assertIn(str(info[1]), self.driver.page_source)
+            else:
+                self.assertIn(str(info[1]), field.get_attribute('value'))
+
+    def test_profile_form_saves(self):
+        """Test to make sure all data in a filled out form saves properly"""
+        self.user.save()
+        self.login_user()
+        link = self.driver.find_element_by_link_text('Profile')
+        link.click()
+        self.assertIn("Profile Detail View", self.driver.page_source)
+        link = self.driver.find_element_by_link_text('Edit')
+        link.click()
+        first_name = 'new_first_name'
+        last_name = 'new_last_name'
+        email = 'newem@email.com'
+        phone = 999
+        date = "4/14/1970"
+        public = 'PU'
+
+        # Profile page: Fill Out User Info
+        info_list = [('id_email', email),
+                     ('id_first_name', first_name),
+                     ('id_last_name', last_name)]
+        for info in info_list:
+            field = self.driver.find_element_by_id(info[0])
+            field.send_keys(info[1])
+        # Profile page: Fill Out Profile Info
+        info_list = [('id_phone', phone),
+                     ('id_birthday', date),
+                     ('id_picture', Test_File_Location),
+                     ('id_pic_privacy', public),
+                     ('id_birthday_privacy', public),
+                     ('id_phone_privacy', public),
+                     ('id_name_privacy', public),
+                     ('id_email_privacy', public)]
+        for info in info_list:
+            field = self.driver.find_element_by_id(info[0])
+            if info[0] == 'id_birthday':
+                field.clear()
+            field.send_keys(info[1])
+        form = self.driver.find_element_by_tag_name('form')
+        form.submit()
+
+        # Check if info is in the profile view
+        self.driver.implicitly_wait(4)
+        self.assertIn("Profile Detail View", self.driver.page_source)
+        self.user = User.objects.get(username=self.user.username)
+        check_inputs = [(self.user.first_name, first_name),
+                        (self.user.last_name, last_name),
+                        (self.user.email, email),
+                        (self.user.profile.phone, phone),
+                        (self.user.profile.birthday,  datetime.date(1970, 4, 14)),
+                        (self.user.profile.pic_privacy, public),
+                        (self.user.profile.birthday_privacy, public),
+                        (self.user.profile.phone_privacy, public),
+                        (self.user.profile.name_privacy, public),
+                        (self.user.profile.email_privacy, public)]
+
+        for field in check_inputs:
+            self.assertEquals(field[0], field[1])
+        self.assertIn("Testimage", self.user.profile.picture.name)
+
+
+class BadUser(LiveServerTestCase):
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        self.user = User(username='hi')
+        self.user.set_password('goodbye')
+        self.user.save()
+        self.user.profile.phone = 1234567
+        self.user.profile.save()
+
+    def tearDown(self):
+        self.driver.implicitly_wait(4)
+        self.driver.quit()
+
+    def test_profile_redirect(self):
+        self.driver.get(self.live_server_url + reverse('profile_detail', kwargs={'pk': self.user.profile.pk}))
+        # import pdb; pdb.set_trace()
+        self.assertIn('Log in', self.driver.page_source)
+        self.driver.get(self.live_server_url + reverse('profile_update', kwargs={'pk': self.user.profile.pk}))
+        self.assertIn('Log in', self.driver.page_source)
+
+    def test_upload_photo_redirect(self):
+        self.driver.get(self.live_server_url + reverse('upload_photo'))
+        self.assertIn('Log in', self.driver.page_source)
+
+    def test_edit_photo_hack(self):
+        photo = ImageFactory(user=self.user, published='PR')
+        photo.picture = 'else'
+        photo.save()
+
+        other = User(username='guy')
+        other.set_password('something')
+        other.save()
+        other.profile.phone = 7654321
+        other.profile.save()
+
+        self.login('guy', 'something')
+
+        self.driver.get(self.live_server_url + reverse('edit_photo', kwargs={'pk': photo.pk}))
+        self.assertIn('Log in', self.driver.page_source)
+
+    def test_edit_album_redirect(self):
+        self.driver.get(self.live_server_url + reverse('library', kwargs={'pk': self.user.profile.pk}))
+        self.assertIn('Log in', self.driver.page_source)
+
+    def test_edit_album_hack(self):
+        other = User(username='guy')
+        other.set_password('something')
+        other.save()
+        other.profile.phone = 7654321
+        other.profile.save()
+
+        self.login('guy', 'something')
+
+        self.driver.get(self.live_server_url + reverse('library', kwargs={'pk': self.user.profile.pk}))
+        self.assertIn('Log in', self.driver.page_source)
+
+    def test_bad_login_redirect(self):
+        self.driver.get(self.live_server_url + reverse('auth_login'))
+        self.driver.find_element_by_id('id_username').send_keys('hi')
+        self.driver.find_element_by_id('id_password').send_keys('wrong')
+        self.driver.find_element_by_tag_name('form').submit()
+
+    def login(self, user, password):
+        self.driver.get(self.live_server_url + reverse('auth_login'))
+        namefield = self.driver.find_element_by_id('id_username').send_keys(user)
+        passfield = self.drvier.find_element_by_id('id_password').send_keys(password)
