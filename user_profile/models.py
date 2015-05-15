@@ -13,7 +13,7 @@ class ActiveProfileManager(models.Manager):
     def get_queryset(self):
         """gets all active members"""
         query = super(ActiveProfileManager, self).get_queryset()
-        return query.filter(is_active__exact=True)
+        return query.filter(user__is_active__exact=True)
 
 
 @python_2_unicode_compatible
@@ -44,7 +44,6 @@ class UserProfile(models.Model):
 
     # Associates profile to the User model
     user = models.OneToOneField(User, related_name='profile')
-    is_active = models.BooleanField(default=True)
 
     following = models.ManyToManyField('self',
                                        blank=True,
@@ -66,6 +65,9 @@ class UserProfile(models.Model):
     # profile manager for active users
     objects = models.Manager()
     active = ActiveProfileManager()
+
+    def is_active(self):
+            return self.user.is_active
 
     # Following
     def follow(self, other):
