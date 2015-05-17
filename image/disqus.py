@@ -10,11 +10,17 @@ from mod_drops.settings import STATIC_URL, BASE_DIR
 
 def get_disqus_sso(user):
 
+    # generate icon and avatar
+    url = "http://localhost:8000/"
+
+    avatar = os.path.join(url, user.profile.picture.url)
+
     # create a JSON packet of our data attributes
     data = simplejson.dumps({
         'id': user.pk,
         'username': user.username,
         'email': user.email,
+        'avatar': avatar,
     })
     # encode the data to base64
     message = base64.b64encode(data)
@@ -24,14 +30,8 @@ def get_disqus_sso(user):
     # generate our hmac signature
     sig = hmac.HMAC(DISQUS_SECRET_KEY, '%s %s' % (message, timestamp), hashlib.sha1).hexdigest()
 
-    # generate icon and avatar
-    url = "http://localhost:8000/"
-
+    # generate icon
     icon = os.path.join(STATIC_URL, 'mod_drops/images/favicon.png')
-
-    avatar = os.path.join(url, user.profile.picture.url[1:])
-
-    print avatar
 
     # return a script tag to insert the sso message
     return """<script type="text/javascript">
@@ -44,7 +44,6 @@ def get_disqus_sso(user):
           width:   "800",
           height:  "400",
           icon:    "%(icon)s",
-          avatar:   "%(avatar)s",
     };
     }
     </script>""" % dict(
@@ -53,7 +52,6 @@ def get_disqus_sso(user):
         sig=sig,
         pub_key=DISQUS_PUBLIC_KEY,
         icon=icon,
-        avatar=avatar,
     )
 
     # use to customize button:
