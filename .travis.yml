@@ -1,6 +1,12 @@
 language: python
+services:
+  - postgresql
+env:
+  - DATABASE_URL='postgres://postgres:@localhost:5432/test' 
 python:
   - "2.7"
+addons:
+  postgresql: "9.3"
 # prepare xvfb for Selenium testing
 before_install:
   - "export DISPLAY=:99.0"
@@ -10,6 +16,9 @@ install: "pip install -r requirements.txt"
 # cd into directory with manage.py module
 before_script:
   - cd ./
+  - psql -c 'create database test;' -U postgres
+  - python manage.py migrate --noinput
+  - python manage.py collectstatic --noinput
 # command to run tests
 script:
   - python manage.py test
