@@ -12,7 +12,8 @@ before_script:
   - cd mod_drops
 # command to run tests
 script:
-  - coverage run --source=mod_drop,user_profile manage.py test
+  - python manage.py test
+#  - coverage run --source=mod_drop,user_profile manage.py test
 # command to run Coveralls
 # after_success:
 #   - coveralls
