@@ -33,7 +33,7 @@ def get_disqus_sso(user):
     sig = hmac.HMAC(DISQUS_SECRET_KEY, '%s %s' % (message, timestamp), hashlib.sha1).hexdigest()
 
     # generate icon
-    icon = os.path.join(STATIC_URL, 'mod_drops/images/favicon.png')
+    icon = os.path.join(STATIC_URL, 'mod_drops/images/favicon.ico')
 
     # return a script tag to insert the sso message
     return """<script type="text/javascript">
