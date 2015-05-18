@@ -13,7 +13,9 @@ def get_disqus_sso(user):
     # generate icon and avatar
     url = "http://localhost:8000/"
 
-    avatar = os.path.join(url, user.profile.picture.url)
+    avatar = os.path.join(url, user.profile.picture.url[1:])
+
+    avatar = "http://www.smallcats.org/sitebuilder/images/Andean_cat_face-161x134.jpg"
 
     # create a JSON packet of our data attributes
     data = simplejson.dumps({
