@@ -1,3 +1,5 @@
+# [![Travis](https://travis-ci.org/henry808/mod_drops.svg?branch=master)](https://travis-ci.org/henry808/mod_drops.svg?branch=master) 
+
 # mod_drops
 
 Site for trading stylish images from the 60's and 70's.
