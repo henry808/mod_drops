@@ -1,0 +1,11 @@
+keypair: SoundCloudAPI
+security_group: ssh-access
+instance_type: t1.micro
+ami: ami-d0d8b8e0
+vpc_subnet_id: subnet-6072d317
+region: us-west-2
+instance_tags: {"Name": "ansible-built"}
+root_ebs_size: 8
+zone: us-west-2a
+instance_profile_name: newiminstance
+num_instances: 1
