@@ -63,6 +63,7 @@ fabfile.py
 # Credentials
 secrets.py
 secrets.conf
+secrets.yml
 
 # Misc
 .DS_Store
