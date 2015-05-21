@@ -1,2 +1,2 @@
-django_home: /home/ubuntu/mod_drop
+django_home: /home/ubuntu
 rds_db_instance: moddropsdbase
