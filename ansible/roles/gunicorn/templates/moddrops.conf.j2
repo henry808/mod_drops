@@ -6,7 +6,7 @@ stop on runlevel [016]
 respawn
 setuid nobody
 setgid nogroup
-chdir {{ django_home }}
+chdir {{ django_home }}/mod_drops
 env DJANGO_SETTINGS_MODULE=mod_drops.settings
 env DJANGO_CONFIGURATION=Prod
 env DATABASE_URL={{ db_url }}

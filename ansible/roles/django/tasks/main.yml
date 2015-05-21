@@ -22,7 +22,7 @@
   sudo: yes
   pip:
     state: present
-    requirements: "{{ django_home }}/requirements.txt"
+    requirements: "{{ django_home }}mod_drops/requirements.txt"
 
 - name: Get DB Hostvars
   set_fact:
@@ -41,7 +41,7 @@
     DJANGO_CONFIGURATION: Prod
     DATABASE_URL: "{{ db_url }}"
   django_manage:
-    app_path: "{{ django_home }}"
+    app_path: "{{ django_home }}/mod_drops"
     settings: mod_drops.settings
     command: migrate
 
@@ -51,6 +51,6 @@
     DJANGO_CONFIGURATION: Prod
     DATABASE_URL: "{{ db_url }}"
   django_manage:
-    app_path: "{{ django_home }}"
+    app_path: "{{ django_home }}/mod_drops"
     settings: mod_drops.settings
     command: collectstatic
