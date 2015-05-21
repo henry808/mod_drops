@@ -1,9 +1,15 @@
 # Django Deployment of imager app
 
 This repository contains ansible roles and playbooks which implement a basic
-deployment of Django imager app to an AWS ec2 instance.
+deployment of mod_drops to an AWS ec2 instance.
 
-Use this command to deploy imager app:
+Created instance with this command (that also builds an inventory):
+
+```bash
+$ansible-playbook -i plugins/inventory/ provision_ec2.yml
+```
+
+Use this command to deploy mod_drops:
 
 ```bash
 $ansible-playbook -i plugins/inventory deploy_django.yml

@@ -16,13 +16,13 @@
     - zlib1g-dev
 
 - name: Clone Django Repository
-  git: repo=https://github.com/henry808/django-imager.git dest={{ django_home }} force=yes version=ansible
+  git: repo=https://github.com/henry808/mod_drops.git dest={{ django_home }} force=yes version=ansible
 
 - name: Install Python Dependencies
   sudo: yes
   pip:
     state: present
-    requirements: "{{ django_home }}/imager/requirements.txt"
+    requirements: "{{ django_home }}/mod_drops/requirements.txt"
 
 - name: Get DB Hostvars
   set_fact:
@@ -41,8 +41,8 @@
     DJANGO_CONFIGURATION: Prod
     DATABASE_URL: "{{ db_url }}"
   django_manage:
-    app_path: "{{ django_home }}/imager"
-    settings: imager.settings
+    app_path: "{{ django_home }}/mod_drops"
+    settings: mod_drops.settings
     command: migrate
 
 
@@ -51,6 +51,6 @@
     DJANGO_CONFIGURATION: Prod
     DATABASE_URL: "{{ db_url }}"
   django_manage:
-    app_path: "{{ django_home }}/imager"
-    settings: imager.settings
+    app_path: "{{ django_home }}/mod_drops"
+    settings: mod_drops.settings
     command: collectstatic
