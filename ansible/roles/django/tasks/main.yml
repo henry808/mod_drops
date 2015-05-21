@@ -16,7 +16,7 @@
     - zlib1g-dev
 
 - name: Clone Django Repository
-  git: repo=https://github.com/henry808/mod_drops.git dest={{ django_home }} force=yes version=ansible
+  git: repo=https://github.com/henry808/mod_drops.git dest={{ django_home }} force=yes version=deploy
 
 - name: Install Python Dependencies
   sudo: yes
