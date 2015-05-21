@@ -161,7 +161,7 @@ class Prod(Base):
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = 'tmp/activation'
 
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['ec2-52-25-145-80.us-west-2.compute.amazonaws.com']
 
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
