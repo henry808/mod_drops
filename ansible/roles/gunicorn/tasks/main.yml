@@ -1,0 +1,20 @@
+---
+
+- name: Install Requirements
+  sudo: yes
+  pip: name=gunicorn state=present
+
+- name: Get Host Email Password
+  include_vars: secrets.yml
+
+- name: Set Host Password
+  set_fact: 
+    host_password: "{{ email_password }}"
+
+- name: Create gunicorn Upstart Job
+  sudo: yes
+  template: src=moddrops.conf.j2 dest=/etc/init/moddrops.conf
+
+- name: Start gunicorn Upstart Job
+  sudo: yes
+  service: name=moddrops state=restarted

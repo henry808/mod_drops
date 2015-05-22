@@ -8,7 +8,7 @@ register = template.Library()
 # Custom filter, return all images that are:
 #    public, shared, or belong to a logged in user
 @register.filter
-def viewable(self, user):
+def viewable_all_users(self, user):
     query = Image.objects.filter(
         Q(user=user) |
         Q(published=Image.SHARED) |
