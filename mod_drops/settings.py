@@ -103,9 +103,6 @@ class Base(Configuration):
     LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
     LOGIN_URL = '/accounts/login/'
 
-    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-    EMAIL_FILE_PATH = 'tmp/activation'
-
     DISQUS_SECRET_KEY = os.environ.get('DISQUS_SECRET_KEY')
     DISQUS_PUBLIC_KEY = os.environ.get('DISQUS_PUBLIC_KEY')
     DISQUS_WEBSITE_SHORTNAME = 'moddrop'
@@ -135,6 +132,10 @@ class Dev(Base):
         'debug_toolbar',
     )
 
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = 'tmp/activation'
+
+
 class Prod(Base):
     DEBUG = True
 
@@ -158,10 +159,7 @@ class Prod(Base):
         'disqus',
     )
 
-    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-    EMAIL_FILE_PATH = 'tmp/activation'
-
-    ALLOWED_HOSTS = ['*', 'ec2-52-25-145-80.us-west-2.compute.amazonaws.com']
+    ALLOWED_HOSTS = ['ec2-52-25-145-80.us-west-2.compute.amazonaws.com']
 
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
