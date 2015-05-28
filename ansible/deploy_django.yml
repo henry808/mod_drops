@@ -21,6 +21,6 @@
               proxy_set_header X-Real-IP $remote_addr;
               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             }
-          - location /media { root {{ django_home }}/mod_drops; }
-          - location /staticroot { root {{ django_home }}/mod_drops; }
+          - location /media { root {{ django_home }}; }
+          - location /static { root {{ django_home }}; }
 
