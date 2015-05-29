@@ -64,6 +64,7 @@ fabfile.py
 secrets.py
 secrets.conf
 secrets.yml
+secretsremote.conf
 
 # Misc
 .DS_Store
