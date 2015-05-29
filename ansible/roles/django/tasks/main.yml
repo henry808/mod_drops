@@ -37,6 +37,11 @@
     db_url: "{{ db_host.ec2_engine }}://{{ db_host.ec2_master_username }}:{{ db_password }}@{{ db_host.ec2__address }}:{{ db_host.ec2__port }}/{{ db_host.ec2_DBName }}"
 
 
+- name: Set Host Password
+  set_fact: 
+    host_password: "{{ email_password }}"
+
+
 - name: Create environmental variable script
   sudo: yes
   template: src=moddropsecrets.conf dest={{ django_home }}/secretsremote.conf
