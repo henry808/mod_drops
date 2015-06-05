@@ -3,7 +3,7 @@ services:
   - postgresql
 env:
   - DATABASE_URL='postgres://postgres:@localhost:5432/test'
-  - DJANGO_CONFIGURATION='Dev'
+  - DJANGO_CONFIGURATION=Dev
   - DJANGO_SETTINGS_MODULE=mod_drops.settings
 python:
   - "2.7"
