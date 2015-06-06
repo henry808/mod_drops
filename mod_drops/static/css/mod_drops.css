@@ -39,4 +39,10 @@ body {
 .homebutton {
   margin: 0em 1em;
 }
+
+@font-face {
+  font-family: 'OpenSans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url("../fonts/PWGroovy.woff") format('woff');
 }
