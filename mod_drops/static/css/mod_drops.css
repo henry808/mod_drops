@@ -35,3 +35,8 @@ body {
 .portrait {
   height: 15em;
 }
+
+.homebutton {
+  margin: 0em 1em;
+}
+}
