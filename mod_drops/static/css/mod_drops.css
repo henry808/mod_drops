@@ -37,12 +37,50 @@ body {
 }
 
 .homebutton {
-  margin: 0em 1em;
+  padding: .6em;
+  margin: 0em 2em;
+  background-color: #00CC00;
+  border-color: #00A300;
+  border-width: .2em;
+  border-radius: 20%;
+  border-top-left-radius: .75em .75em;
+  border-top-right-radius: .75em .75em;
+  border-bottom-left-radius: .75em .75em;
+  border-bottom-right-radius: .75em .75em;
+  font-size: 1.2em;
+}
+
+.homebutton:hover {
+  background-color: #00CC00;
+  border-color: #00A300;
+}
+
+a {
+  color: #FFEB99;
+}
+
+a:hover {
+  color: #FFEB99;
+}
+
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active
+{
+  background-color: red;
+}
+
+.btn-default:hover
+{
+  background-color: red;
 }
 
 @font-face {
-  font-family: 'OpenSans';
+  font-family: 'pwgroovymedium';
   font-style: normal;
   font-weight: 400;
   src: local('Open Sans'), local('OpenSans'), url("../fonts/PWGroovy.woff") format('woff');
 }
+
+body {
+  font-family: "pwgroovymedium",Helvetica,Arial,sans-serif;
