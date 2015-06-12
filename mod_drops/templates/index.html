@@ -8,20 +8,14 @@
     <header>
         <p class="lead">Register or log in to upload your mod images to Mod Drops.</p>
         {% if not user.is_authenticated %}
-            <div class="btn-group" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default homebutton">
-                        <a role="button" href="{% url 'auth_login' %}">Login</a>
-                    </button>
-                </div>
-            </div>
-            <div class="btn-group" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default homebutton">
-                        <a role="button" href="{% url 'registration_register' %}">Join Now!</a>
-                    </button>
-                </div>
-            </div>
+            <p>
+                <button type="button" class="btn btn-primary homebutton">
+                    <a role="button" href="{% url 'auth_login' %}">Login</a>
+                </button>
+                <button type="button" class="btn btn-primary homebutton">
+                    <a role="button" href="{% url 'registration_register' %}">Join Now!</a>
+                </button>
+            </p>
         {% endif %}
     </header>    
 
