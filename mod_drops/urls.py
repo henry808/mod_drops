@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     url(r'^$', 'mod_drops.views.index', name='index'),
+    url(r'^about/', 'mod_drops.views.about', name='about'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^profile/', include('user_profile.urls', namespace='profile')),
     url(r'^image/', include('image.urls', namespace='image')),
