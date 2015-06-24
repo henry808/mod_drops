@@ -4,8 +4,9 @@ from image.models import Image
 
 def index(request):
     try:
-        random_image = Image.objects.filter(
-            published='pub').order_by('?')[0].image.url
+        random_image = Image.objects.order_by('?')[0]
+        # random_image = Image.objects.filter(
+        #     published='pub').order_by('?')[0].image.url
     except IndexError:
         random_image = "test"
     context = {'random_image': random_image,
