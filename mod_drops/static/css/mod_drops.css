@@ -29,6 +29,11 @@ body {
   color: #dddddd;
 }
 
+img {
+    width: 250px;
+    height: 250px;
+}
+
 
 .navbar-inverse .navbar-brand {
   color: #dddddd;
