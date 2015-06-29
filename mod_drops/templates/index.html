@@ -6,22 +6,34 @@
 {% block body %}
 <div id="index">
     <header>
-        {% if not user.is_authenticated %}
-            <div class='login'>
-                <a href="{% url 'auth_login' %}">Login</a>
+        <div class="container-fluid">
+            <div class="row">
+            {% for random_image in random_images %}
+                <div class="col-md-3 col-sm-6">
+                    <a href="#" class="thumbnail">
+                        <img src="{{ MEDIA_URL }}{{ random_image.picture }}">
+                    </a>
+                    <p>{{ random_image }}</p>
+                </div>
+            {% endfor %}
             </div>
+        </div>
+        <p class="lead">Register or log in to upload your mod images to Mod Drops.</p>
+        {% if not user.is_authenticated %}
+            <p>
+                <button type="button" class="btn btn-primary homebutton">
+                    <a role="button" href="{% url 'auth_login' %}">Login</a>
+                </button>
+                <button type="button" class="btn btn-primary homebutton">
+                    <a role="button" href="{% url 'registration_register' %}">Join Now!</a>
+                </button>
+            </p>
         {% endif %}
     </header>    
-    <div>
 
-        <p class="lead">Upload your mod images to Mod Drops.</p>
-        {% if not user.is_authenticated %}
-            <a href="{% url 'registration_register' %}">Join Now!</a>
-        {% endif %}
-    </div>
-    <p>The Amazing Mod Drops! Static URL: {{ STATIC_URL }}</p>
+    <!-- <p>The Amazing Mod Drops! Static URL: {{ STATIC_URL }}</p>
     <div>
-        <img src="{{ image_location }}{{ random_image }}">
-    </div>
+        <img src="{{ STATIC_URL }}">
+    </div> -->
 </div>
 {% endblock %}
